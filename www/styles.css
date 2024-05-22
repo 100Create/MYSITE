@@ -6,8 +6,8 @@ body {
 }
 
 header, footer {
-    background-color: #a0aecd;
-    color: #fff;
+    background-color: #000000;
+    color: #ffffff;
     text-align: center;
     padding: 10px 0;
 }
@@ -37,11 +37,11 @@ section {
 }
 
 .player-data {
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #ffa30e;
 }
 .data-title {
     font-weight: bold;
@@ -63,13 +63,13 @@ section {
     font-size: 15px;
 }
 .active, .collapsible:hover {
-    background-color: #ccc;
+    background-color: #bdb39547;
 }
 .content {
     padding: 0 18px;
     display: none;
     overflow: hidden;
-    background-color: #f9f9f9;
+    background-color: #ffa30e;
 }
 
 /* Add more styles as needed */
