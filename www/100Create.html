@@ -4,84 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Profile: 100Create</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .player-data {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .data-title {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .data-content {
-            white-space: pre-wrap;
-            margin-left: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Player Profile: 100Create</h1>
-    <div id="profileData" class="player-data"></div>
-
-    <script>
-        async function fetchPlayerData(playerName) {
-            const apiUrl = `https://sky.shiiyu.moe/api/v2/profile/${playerName}`;
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+    <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Player Profile: 100Create</h1>
+        <div id="profileData" class="player-data"></div>
+    
+        <script>
+            async function fetchPlayerData(playerName) {
+                const apiUrl = `https://sky.shiiyu.moe/api/v2/profile/${playerName}`;
+    
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const data = await response.json();
+                    displayData(data);
+                } catch (error) {
+                    document.getElementById('profileData').innerText = `Error loading data: ${error}`;
                 }
-                const data = await response.json();
-                displayData(data);
-            } catch (error) {
-                document.getElementById('profileData').innerText = `Error loading data: ${error}`;
             }
-        }
-
-        function displayData(data) {
-            const profileContainer = document.getElementById('profileData');
-            profileContainer.innerHTML = '';
-
-            for (const profileId in data) {
-                const profile = data[profileId];
-
-                const profileDiv = document.createElement('div');
-                profileDiv.classList.add('player-data');
-
-                addDataSection(profileDiv, 'Profile ID', profile.profile_id);
-                addDataSection(profileDiv, 'Profile Name', profile.cute_name);
-                addDataSection(profileDiv, 'Current', profile.current);
-                addDataSection(profileDiv, 'Last Save', new Date(profile.last_save).toLocaleString());
-                addDataSection(profileDiv, 'Raw Data', JSON.stringify(profile.raw, null, 2));
-                addDataSection(profileDiv, 'Items', JSON.stringify(profile.items, null, 2));
-                addDataSection(profileDiv, 'Data', JSON.stringify(profile.data, null, 2));
-
-                profileContainer.appendChild(profileDiv);
+    
+            function displayData(data) {
+                const profileContainer = document.getElementById('profileData');
+                profileContainer.innerHTML = '';
+    
+                for (const profileId in data.profiles) {
+                    const profile = data.profiles[profileId];
+    
+                    const profileDiv = document.createElement('div');
+                    profileDiv.classList.add('player-data');
+    
+                    addDataSection(profileDiv, 'Profile ID', profileId);
+                    addDataSection(profileDiv, 'Profile Name', profile.cute_name);
+                    addDataSection(profileDiv, 'Current', profile.current ? 'Yes' : 'No');
+                    addDataSection(profileDiv, 'Last Save', profile.last_save ? new Date(profile.last_save).toLocaleString() : 'N/A');
+                    addDataSection(profileDiv, 'Raw Data', JSON.stringify(profile.raw, null, 2));
+                    addDataSection(profileDiv, 'Items', JSON.stringify(profile.items, null, 2));
+                    addDataSection(profileDiv, 'Data', JSON.stringify(profile.data, null, 2));
+    
+                    profileContainer.appendChild(profileDiv);
+                }
             }
-        }
-
-        function addDataSection(container, title, content) {
-            const titleDiv = document.createElement('div');
-            titleDiv.classList.add('data-title');
-            titleDiv.innerText = `${title}:`;
-
-            const contentDiv = document.createElement('div');
-            contentDiv.classList.add('data-content');
-            contentDiv.innerText = content;
-
-            container.appendChild(titleDiv);
-            container.appendChild(contentDiv);
-        }
-
-        fetchPlayerData('100Create');
-    </script>
-</body>
-</html>
+    
+            function addDataSection(container, title, content) {
+                const titleDiv = document.createElement('div');
+                titleDiv.classList.add('data-title');
+                titleDiv.innerText = `${title}:`;
+    
+                const contentDiv = document.createElement('div');
+                contentDiv.classList.add('data-content');
+                contentDiv.innerText = content !== undefined ? content : 'N/A';
+    
+                container.appendChild(titleDiv);
+                container.appendChild(contentDiv);
+            }
+    
+            fetchPlayerData('100Create');
+        </script>
+    </body>
+    </html>    
