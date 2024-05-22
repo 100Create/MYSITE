@@ -4,64 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Profile: 100Create</title>
-    <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <h1>Player Profile: 100Create</h1>
-        <div id="profileData" class="player-data"></div>
-    
-        <script>
-            async function fetchPlayerData(playerName) {
-                const apiUrl = `https://sky.shiiyu.moe/api/v2/profile/${playerName}`;
-    
-                try {
-                    const response = await fetch(apiUrl);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const data = await response.json();
-                    displayData(data);
-                } catch (error) {
-                    document.getElementById('profileData').innerText = `Error loading data: ${error}`;
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .player-data {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .data-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .data-content {
+            margin-left: 10px;
+            white-space: pre-wrap;
+        }
+        .collapsible {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+        .active, .collapsible:hover {
+            background-color: #ccc;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Player Profile: 100Create</h1>
+    <div id="profileData" class="player-data"></div>
+
+    <script>
+        async function fetchPlayerData(playerName) {
+            const apiUrl = `https://sky.shiiyu.moe/api/v2/profile/${playerName}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
+                const data = await response.json();
+                displayData(data);
+            } catch (error) {
+                document.getElementById('profileData').innerText = `Error loading data: ${error}`;
             }
-    
-            function displayData(data) {
-                const profileContainer = document.getElementById('profileData');
-                profileContainer.innerHTML = '';
-    
-                for (const profileId in data.profiles) {
-                    const profile = data.profiles[profileId];
-    
-                    const profileDiv = document.createElement('div');
-                    profileDiv.classList.add('player-data');
-    
-                    addDataSection(profileDiv, 'Profile ID', profileId);
-                    addDataSection(profileDiv, 'Profile Name', profile.cute_name);
-                    addDataSection(profileDiv, 'Current', profile.current ? 'Yes' : 'No');
-                    addDataSection(profileDiv, 'Last Save', profile.last_save ? new Date(profile.last_save).toLocaleString() : 'N/A');
-                    addDataSection(profileDiv, 'Raw Data', JSON.stringify(profile.raw, null, 2));
-                    addDataSection(profileDiv, 'Items', JSON.stringify(profile.items, null, 2));
-                    addDataSection(profileDiv, 'Data', JSON.stringify(profile.data, null, 2));
-    
-                    profileContainer.appendChild(profileDiv);
+        }
+
+        function displayData(data) {
+            const profileContainer = document.getElementById('profileData');
+            profileContainer.innerHTML = '';
+
+            for (const profileId in data.profiles) {
+                const profile = data.profiles[profileId];
+
+                const profileDiv = document.createElement('div');
+                profileDiv.classList.add('player-data');
+
+                addDataSection(profileDiv, 'Profile ID', profileId);
+                addDataSection(profileDiv, 'Profile Name', profile.cute_name);
+                addDataSection(profileDiv, 'Current', profile.current ? 'Yes' : 'No');
+                addDataSection(profileDiv, 'Last Save', profile.last_save ? new Date(profile.last_save).toLocaleString() : 'N/A');
+                
+                addCollapsibleSection(profileDiv, 'Raw Data', profile.raw);
+                addCollapsibleSection(profileDiv, 'Items', profile.items);
+                addCollapsibleSection(profileDiv, 'Data', profile.data);
+
+                profileContainer.appendChild(profileDiv);
+            }
+        }
+
+        function addDataSection(container, title, content) {
+            const titleDiv = document.createElement('div');
+            titleDiv.classList.add('data-title');
+            titleDiv.innerText = `${title}:`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('data-content');
+            contentDiv.innerText = content !== undefined ? content : 'N/A';
+
+            container.appendChild(titleDiv);
+            container.appendChild(contentDiv);
+        }
+
+        function addCollapsibleSection(container, title, jsonData) {
+            const button = document.createElement('button');
+            button.classList.add('collapsible');
+            button.innerText = title;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('content');
+
+            if (jsonData) {
+                const formattedJson = JSON.stringify(jsonData, null, 2);
+                const pre = document.createElement('pre');
+                pre.innerText = formattedJson.replace(/[\{\}\"]/g, '');
+                contentDiv.appendChild(pre);
+            } else {
+                contentDiv.innerText = 'N/A';
+            }
+
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
                 }
-            }
-    
-            function addDataSection(container, title, content) {
-                const titleDiv = document.createElement('div');
-                titleDiv.classList.add('data-title');
-                titleDiv.innerText = `${title}:`;
-    
-                const contentDiv = document.createElement('div');
-                contentDiv.classList.add('data-content');
-                contentDiv.innerText = content !== undefined ? content : 'N/A';
-    
-                container.appendChild(titleDiv);
-                container.appendChild(contentDiv);
-            }
-    
-            fetchPlayerData('100Create');
-        </script>
-    </body>
-    </html>    
+            });
+
+            container.appendChild(button);
+            container.appendChild(contentDiv);
+        }
+
+        fetchPlayerData('100Create');
+    </script>
+</body>
+</html>
