@@ -3,6 +3,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #3f3e3e;
+    color: #3f3e3e;
 }
 
 header, footer {
@@ -34,42 +36,8 @@ main {
 
 section {
     margin-bottom: 20px;
-}
-
-.player-data {
-    border: 1px solid #000000;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    background-color: #ffa30e;
-}
-.data-title {
-    font-weight: bold;
-    margin-top: 10px;
-}
-.data-content {
-    margin-left: 10px;
-    white-space: pre-wrap;
-}
-.collapsible {
-    background-color: #f1f1f1;
-    color: #444;
-    cursor: pointer;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-}
-.active, .collapsible:hover {
-    background-color: #bdb39547;
-}
-.content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #ffa30e;
+    background-color: #3f3e3e;
+    color: #3f3e3e;
 }
 
 /* Add more styles as needed */
