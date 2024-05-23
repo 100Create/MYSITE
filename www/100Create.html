@@ -79,7 +79,6 @@
                 addDataSection(profileDiv, 'Profile Name', profile.cute_name);
                 addDataSection(profileDiv, 'Profile ID', profileId);
                 addDataSection(profileDiv, 'Current', profile.current ? 'Yes' : 'No');
-                addDataSection(profileDiv, 'Last Save', profile.last_save ? new Date(profile.last_save).toLocaleString() : 'N/A');
                 
                 addCollapsibleSection(profileDiv, 'Raw Data ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ Dropdown ↓', profile.raw);
                 addCollapsibleSection(profileDiv, 'Items ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ Dropdown ↓', profile.items);
