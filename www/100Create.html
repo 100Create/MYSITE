@@ -10,7 +10,7 @@
             margin: 20px;
         }
         .player-data {
-            border: 1px solid #ccc;
+            border: 1px solid #cccccc98;
             padding: 10px;
             margin-bottom: 20px;
             border-radius: 5px;
@@ -25,7 +25,7 @@
             white-space: pre-wrap;
         }
         .collapsible {
-            background-color: #f1f1f1;
+            background-color: #ffffff;
             color: #444;
             cursor: pointer;
             padding: 10px;
@@ -76,14 +76,14 @@
                 const profileDiv = document.createElement('div');
                 profileDiv.classList.add('player-data');
 
-                addDataSection(profileDiv, 'Profile ID', profileId);
                 addDataSection(profileDiv, 'Profile Name', profile.cute_name);
+                addDataSection(profileDiv, 'Profile ID', profileId);
                 addDataSection(profileDiv, 'Current', profile.current ? 'Yes' : 'No');
                 addDataSection(profileDiv, 'Last Save', profile.last_save ? new Date(profile.last_save).toLocaleString() : 'N/A');
                 
-                addCollapsibleSection(profileDiv, 'Raw Data', profile.raw);
-                addCollapsibleSection(profileDiv, 'Items', profile.items);
-                addCollapsibleSection(profileDiv, 'Data', profile.data);
+                addCollapsibleSection(profileDiv, 'Raw Data ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Dropdown ↓', profile.raw);
+                addCollapsibleSection(profileDiv, 'Items ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Dropdown ↓', profile.items);
+                addCollapsibleSection(profileDiv, 'Data ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Dropdown ↓', profile.data);
 
                 profileContainer.appendChild(profileDiv);
             }
