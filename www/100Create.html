@@ -51,11 +51,11 @@
     <div id="profileData" class="player-data"></div>
 
     <script>
-        async function fetchPlayerData(playerName) {
-            const apiUrl = `https://sky.shiiyu.moe/api/v2/profile/${playerName}`;
+        async function fetchProfileData(playerName) {
+            const profileapiUrl = `https://sky.shiiyu.moe/api/v2/profile/${playerName}`;
 
             try {
-                const response = await fetch(apiUrl);
+                const response = await fetch(profileapiUrl);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -81,9 +81,9 @@
                 addDataSection(profileDiv, 'Current', profile.current ? 'Yes' : 'No');
                 addDataSection(profileDiv, 'Last Save', profile.last_save ? new Date(profile.last_save).toLocaleString() : 'N/A');
                 
-                addCollapsibleSection(profileDiv, 'Raw Data ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Dropdown ↓', profile.raw);
-                addCollapsibleSection(profileDiv, 'Items ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Dropdown ↓', profile.items);
-                addCollapsibleSection(profileDiv, 'Data ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- Dropdown ↓', profile.data);
+                addCollapsibleSection(profileDiv, 'Raw Data ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ Dropdown ↓', profile.raw);
+                addCollapsibleSection(profileDiv, 'Items ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ Dropdown ↓', profile.items);
+                addCollapsibleSection(profileDiv, 'Data ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ Dropdown ↓', profile.data);
 
                 profileContainer.appendChild(profileDiv);
             }
@@ -133,7 +133,7 @@
             container.appendChild(contentDiv);
         }
 
-        fetchPlayerData('100Create');
+        fetchProfileData('100Create');
     </script>
 </body>
 </html>
