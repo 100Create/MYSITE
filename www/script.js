@@ -9,14 +9,4 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error('Error fetching stock price:', error);
         });
-
-    // Fetch networth
-    fetch('networth.php')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('networth-info').textContent = `Player 1 networth: $${data.player1_networth}, Player 2 networth: $${data.player2_networth}`;
-        })
-        .catch(error => {
-            console.error('Error fetching networth:', error);
-        });
 });
